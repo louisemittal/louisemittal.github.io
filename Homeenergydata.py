@@ -8,9 +8,9 @@ Created on Thu Jun 27 12:09:57 2024
 import pandas as pd
 
 # Load the data 
-Elecreadings = pd.read_excel('C:/Users/louis/OneDrive/Data investigations/home_energy_use/Home energy use.xlsx', sheet_name='Elecreadings')
-Gasreadings = pd.read_excel('C:/Users/louis/OneDrive/Data investigations/home_energy_use/Home energy use.xlsx', sheet_name='Gasreadings')
-met = pd.read_csv('C:/Users/louis/OneDrive/Data investigations/home_energy_use/metdata.csv', parse_dates=['date'], date_format='mixed')
+Elecreadings = pd.read_excel('Home energy use.xlsx', sheet_name='Elecreadings')
+Gasreadings = pd.read_excel('Home energy use.xlsx', sheet_name='Gasreadings')
+met = pd.read_csv('metdata.csv', parse_dates=['date'], date_format='mixed')
 
 
 # Ensure the timestamp columns are in datetime format
