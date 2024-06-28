@@ -19,6 +19,19 @@
         h1, p {
             text-align: center;
         }
+		
+		.button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
         .link-box {
             border: 2px solid #0056b3;
             border-radius: 5px;
@@ -66,13 +79,13 @@
     <p></p>
 
         <ul>
-        <li>I downloaded energy usage data for gas and electricity from our energy supplier since the start of 2020. Only data with actual meter readings, not estimates, was used.</li>
-        <li>I made calculations in Excel, such as determining the number of days between meter readings, which I then used to calculate average energy use per day over each time period.</li>
-        <li>I downloaded meteorological data from the NOAA Integrated Surface Database (ISD) using the worldmet package in R.</li>
-        <li>I imported the energy usage data and the meteorological data into Python using the pandas package.</li>
-        <li>I processed the data in Python to calculate a mean air temperature for the period between each meter reading.</li>
-        <li>I merged the energy usage data with the temperature data and exported the results to CSV files.</li>
-        <li>Here is the Python script that I used for this part of the data processing:</li>
+        <li>I downloaded energy usage data for gas and electricity from our energy supplier since the start of 2020. Only data with actual meter readings, not estimates, was used.</li></br>
+        <li>I made calculations in Excel, such as determining the number of days between meter readings, which I then used to calculate average energy use per day over each time period.</li></br>
+        <li>I downloaded meteorological data from the NOAA Integrated Surface Database (ISD) using the worldmet package in R.</li></br>
+        <li>I imported the energy usage data and the meteorological data into Python using the pandas package.</li></br>
+        <li>I processed the data in Python to calculate a mean air temperature for the period between each meter reading.</li></br>
+        <li>I merged the energy usage data with the temperature data and exported the results to CSV files.</li></br>
+        <li>Here is the Python script that I used for this part of the data processing:</li></br>
     </ul>
 
     <div class="button-container">
