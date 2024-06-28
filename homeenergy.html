@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Energy Use</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, p {
+            text-align: center;
+        }
+        .link-box {
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #f0f0f0;
+        }
+        .link-box h2 {
+            margin-top: 0;
+        }
+        .link-box p {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .link-box a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .link-box a:hover {
+            background-color: #0056b3;
+        }
+        .tableauPlaceholder {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Analysis of Home Energy Use</h1>
+    <p>
+        <ul>
+            <li>I downloaded energy usage data for gas and electricity from our energy supplier since the start of 2020. Only data with actual meter readings, not estimates, was used.</li>
+            <li>I made calculations in Excel, such as determining the number of days between meter readings, which I then used to calculate average energy use per day over each time period.</li>
+            <li>I downloaded meteorological data from the NOAA Integrated Surface Database (ISD) using the worldmet package in R.</li>
+            <li>I imported the energy usage data and the meteorological data into Python using the pandas package.</li>
+            <li>I processed the data in Python to calculate a mean air temperature for the period between each meter reading.</li>
+            <li>I merged the energy usage data with the temperature data and exported the results to CSV files.</li>
+            <li>Here is the Python script that I used for this part of the data processing: 
+			        <p>
+                       <a href="https://github.com/louisemittal/louisemittal.github.io/blob/main/Homeenergydata.py" target="_blank">python script</a>
+        </p>
+            <li>Here is a Tableau dashboard visualizing the data:</li>
+        </ul>
+    </p>
+
+    <!-- Tableau Dashboard Embed -->
+    <div class='tableauPlaceholder' id='viz1719582086903'>
+        <noscript>
+            <a href='#'>
+                <img alt='Dashboard 1' src='https://public.tableau.com/static/images/En/Energyusagedashboard/Dashboard1/1_rss.png' style='border: none' />
+            </a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='site_root' value='' />
+            <param name='name' value='Energyusagedashboard/Dashboard1' />
+            <param name='tabs' value='no' />
+            <param name='toolbar' value='yes' />
+            <param name='static_image' value='https://public.tableau.com/static/images/En/Energyusagedashboard/Dashboard1/1.png' />
+            <param name='animate_transition' value='yes' />
+            <param name='display_static_image' value='yes' />
+            <param name='display_spinner' value='yes' />
+            <param name='display_overlay' value='yes' />
+            <param name='display_count' value='yes' />
+            <param name='language' value='en-US' />
+            <param name='filter' value='publish=yes' />
+        </object>
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1719582086903');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            if (divElement.offsetWidth > 800) {
+                vizElement.style.minWidth = '800px';
+                vizElement.style.maxWidth = '1800px';
+                vizElement.style.width = '100%';
+                vizElement.style.minHeight = '587px';
+                vizElement.style.maxHeight = '1087px';
+                vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+            } else if (divElement.offsetWidth > 500) {
+                vizElement.style.minWidth = '420px';
+                vizElement.style.maxWidth = '1800px';
+                vizElement.style.width = '100%';
+                vizElement.style.minHeight = '587px';
+                vizElement.style.maxHeight = '1087px';
+                vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+            } else {
+                vizElement.style.width = '100%';
+                vizElement.style.height = '1527px';
+            }
+            
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </div>
+
+</body>
+</html>
