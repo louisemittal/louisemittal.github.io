@@ -34,7 +34,7 @@
 		}
 		.button-container {
 		max-width: 800px;
-		margin: 20px auto;
+		margin: 0px auto;
 		}
 	.button-indent {
     padding-left: 20px; 
@@ -78,6 +78,28 @@
             margin-top: 20px;
             text-align: center;
         }
+		.content-section {
+			max-width: 800px;
+			margin: 40px auto;
+			padding: 20px;
+			background-color: #f9f9f9;
+			border-radius: 5px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-section h2 {
+    color: #007bff;
+    margin-top: 0;
+}
+
+.content-section ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.content-section li {
+    margin-bottom: 10px;
+}
     </style>
 </head>
 <body>
@@ -158,6 +180,18 @@
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
         </script>
     </div>
+	
+	<div class="content-section">
+    <h2>Analysis and Insights</h2>
+    <p>Here you can add your analysis, insights, or any additional information about the energy usage data shown in the dashboard above. For example:</p>
+    <ul>
+        <li>Key observations from the data</li>
+        <li>Trends in energy consumption over time</li>
+        <li>Correlation between temperature and energy use</li>
+        <li>Recommendations for energy conservation</li>
+    </ul>
+    <p>Feel free to expand on these points or add any other relevant information about your home energy use analysis.</p>
+</div>
 
 </body>
 </html>
