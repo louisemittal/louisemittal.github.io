@@ -7,10 +7,10 @@ Created on Thu Jun 27 12:09:57 2024
 
 import pandas as pd
 
-# Load the data 
-Elecreadings = pd.read_excel('Home energy use.xlsx', sheet_name='Elecreadings')
-Gasreadings = pd.read_excel('Home energy use.xlsx', sheet_name='Gasreadings')
-met = pd.read_csv('metdata.csv', parse_dates=['date'], date_format='mixed')
+# Load the data (assuming CSV files, adjust as needed)
+Elecreadings = pd.read_excel('C:/Users/louis/OneDrive/Data investigations/home_energy_use/Home energy use.xlsx', sheet_name='Elecreadings')
+Gasreadings = pd.read_excel('C:/Users/louis/OneDrive/Data investigations/home_energy_use/Home energy use.xlsx', sheet_name='Gasreadings')
+met = pd.read_csv('C:/Users/louis/OneDrive/Data investigations/home_energy_use/metdata.csv', parse_dates=['date'], date_format='mixed')
 
 
 # Ensure the timestamp columns are in datetime format
@@ -33,11 +33,21 @@ for i in range(len(Elecreadings) - 1):
     # Calculate the mean temperature
     mean_temp = temp_subset['air_temp'].mean()
     
+    # Count the number of temperature readings that are not null
+    num_readings = temp_subset['air_temp'].notna().sum()
+    
+    # Count the total number of temperature readings in the period
+    total_hours = temp_subset.shape[0]
+    
     # Store the result with the corresponding meter reading dates
     mean_temps.append({
         'start_date': start_date, 
         'end_date': end_date, 
-        'mean_temperature': mean_temp
+        'mean_temperature': mean_temp,
+        'num_readings': num_readings,
+        'total hours': total_hours,
+        'data capture': num_readings/total_hours*100
+        
     })
 
 # Convert the list of results to a DataFrame
@@ -46,14 +56,11 @@ mean_temps_df = pd.DataFrame(mean_temps)
 # Print the result
 print(mean_temps_df)
 
-# Merge the mean temperature data with the gas and electricity data
 Elecwithtemp = pd.merge(Elecreadings, mean_temps_df, left_on='Date', right_on='end_date',  how='left')
 Gaswithtemp = pd.merge(Gasreadings, mean_temps_df, left_on='Date', right_on='end_date',  how='left')
 
-# Add a column to show when home insulation was installed
 Elecwithtemp['InsulationPresent'] = Elecwithtemp['Date'] > '23/09/2023 00:00'
 Gaswithtemp['InsulationPresent'] = Gaswithtemp['Date'] > '23/09/2023 00:00'
 
-# Output the results to csv files
 Elecwithtemp.to_csv('Elecwithtemp.csv', index=False)
 Gaswithtemp.to_csv('Gaswithtemp.csv', index=False)
