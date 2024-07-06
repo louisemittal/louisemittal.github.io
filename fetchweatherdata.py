@@ -7,7 +7,6 @@ Created on Thu Jul  4 17:35:22 2024
 
 import requests
 import pandas as pd
-import numpy as np
 import io
 from io import BytesIO
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -51,7 +50,8 @@ try:
     # Use the copy for further operations
     stations = uk_locations['station_code'].tolist()
     
-
+    indexes_to_drop = uk_locations[uk_locations['LAT'] <= 0].index
+    uk_locations = uk_locations.drop(uk_locations[uk_locations['LAT'] <= 0].index)
 
 except requests.exceptions.RequestException as e:
     print(f"Error downloading data: {e}")
@@ -147,12 +147,16 @@ if uk_weather_2023 is not None:
     
     uk_weather_2023_processed.loc[~uk_weather_2023_processed['presstatus'].isin([1, 5]), 'pres'] = pd.NA
     
+    uk_weather_2023_processed['tmp'] = uk_weather_2023_processed['tmp']/10
+    
+    uk_weather_2023_processed['pres'] = uk_weather_2023_processed['pres']/10
+    
       
     uk_weather_2023_processed = uk_weather_2023_processed.loc[:,['STATION','DATE','LATITUDE','LONGITUDE',
                     'wd','ws','tmp','vis','pres','dewpt','ceil_hgt']] 
   
-    # Optional: Save to CSV
-    # data.to_csv(f"weather_data_{year}.csv", index=False)
+    # Save to CSV
+    uk_weather_2023_processed.to_csv(f"uk_weather_{year}.csv", index=False)
  
 
 
