@@ -7,10 +7,12 @@ Created on Thu Jul  4 17:35:22 2024
 
 import requests
 import pandas as pd
+import numpy as np
 import io
 from io import BytesIO
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
+#import time
 
 # URL to the ISD history CSV file
 url = "https://www1.ncdc.noaa.gov/pub/data/noaa/isd-history.csv"
@@ -43,8 +45,13 @@ try:
     # Create the new column on the copy
     uk_locations['station_code'] = uk_locations['USAF'].astype(str) + uk_locations['WBAN'].astype(str).str.zfill(5)
 
+    # Reset index starting from 1
+    uk_locations.reset_index(drop=True, inplace=True)
+    
     # Use the copy for further operations
     stations = uk_locations['station_code'].tolist()
+    
+
 
 except requests.exceptions.RequestException as e:
     print(f"Error downloading data: {e}")
@@ -67,19 +74,19 @@ def get_isd_data(station, year):
         return None
 
 def get_data_for_stations(stations, year):
-    uk_weather_2023 = []
+    ukweather = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         future_to_station = {executor.submit(get_isd_data, station, year): station for station in stations}
         for future in tqdm(as_completed(future_to_station), total=len(stations), desc="Fetching data"):
             station = future_to_station[future]
             try:
-                data = future.result()
-                if data is not None:
-                    uk_weather_2023.append(data)
+                uk_weather_2023 = future.result()
+                if uk_weather_2023 is not None:
+                    ukweather.append(uk_weather_2023)
             except Exception as exc:
                 print(f'{station} generated an exception: {exc}')
     
-    return pd.concat(uk_weather_2023, ignore_index=True) if uk_weather_2023 else None
+    return pd.concat(ukweather, ignore_index=True) if ukweather else None
 
 # Assuming uk_locations is your DataFrame and it has a column named 'station_code'
 # If the column name is different, replace 'station_code' with the actual column name
@@ -91,16 +98,62 @@ test_stations = test_locations['station_code'].tolist()
 
 year = 2023
 
-data = get_data_for_stations(stations, year)
-if data is not None:
-    print(data.head())
-    print(f"Total records: {len(data)}")
-    print(f"Unique stations: {data['STATION'].nunique()}")
-    print(f"Date range: {data['DATE'].min()} to {data['DATE'].max()}")
-    print(f"Months covered: {sorted(data['DATE'].dt.month.unique())}")
+uk_weather_2023 = get_data_for_stations(stations, year)
+if uk_weather_2023 is not None:
+    print(uk_weather_2023.head())
+    print(f"Total records: {len(uk_weather_2023)}")
+    print(f"Unique stations: {uk_weather_2023['STATION'].nunique()}")
+    print(f"Date range: {uk_weather_2023['DATE'].min()} to {uk_weather_2023['DATE'].max()}")
+    print(f"Months covered: {sorted(uk_weather_2023['DATE'].dt.month.unique())}")
+
+    uk_weather_2023 = uk_weather_2023.loc[:,['STATION','DATE','LATITUDE','LONGITUDE',
+                    'NAME','WND','CIG','VIS','TMP','DEW','SLP']] 
     
+    uk_weather_2023_processed = uk_weather_2023 
+    
+    
+    uk_weather_2023_processed[['wd', 'wdstatus', 'windtype', 'ws', 'wsstatus']] = uk_weather_2023_processed['WND'].str.split(',', expand=True).apply(pd.to_numeric, errors='coerce')
+   
+    
+    uk_weather_2023_processed[['ceil_hgt', 'chstatus', 'notused', 'notused2']] = uk_weather_2023_processed['CIG'].str.split(',', expand=True).apply(pd.to_numeric, errors='coerce')
+     
+    uk_weather_2023_processed[['vis', 'visstatus', 'notused3', 'notused4']] = uk_weather_2023_processed['VIS'].str.split(',', expand=True).apply(pd.to_numeric, errors='coerce')
+    
+    uk_weather_2023_processed[['tmp', 'tmpstatus']] = uk_weather_2023_processed['TMP'].str.split(',', expand=True).apply(pd.to_numeric, errors='coerce')
+    
+    uk_weather_2023_processed[['dewpt', 'dewptstatus']] = uk_weather_2023_processed['DEW'].str.split(',', expand=True).apply(pd.to_numeric, errors='coerce')
+    
+    
+    uk_weather_2023_processed[['pres', 'presstatus']] = uk_weather_2023_processed['SLP'].str.split(',', expand=True).apply(pd.to_numeric, errors='coerce')
+   
+   
+    
+    uk_weather_2023_processed = uk_weather_2023_processed.loc[:,['STATION','DATE','LATITUDE','LONGITUDE',
+                    'wd','wdstatus','ws','wsstatus','ceil_hgt','chstatus','vis','visstatus','tmp','tmpstatus','dewpt', 'dewptstatus', 'pres','presstatus']]  
+     
+          
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['wdstatus'].isin([1, 5]), 'wd'] = pd.NA
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['wsstatus'].isin([1, 5]), 'ws'] = pd.NA
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['chstatus'].isin([1, 5]), 'ceil_hgt'] = pd.NA
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['visstatus'].isin([1, 5]), 'vis'] = pd.NA
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['tmpstatus'].isin([1, 5]), 'tmp'] = pd.NA
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['dewptstatus'].isin([1, 5]), 'dewpt'] = pd.NA
+    
+    uk_weather_2023_processed.loc[~uk_weather_2023_processed['presstatus'].isin([1, 5]), 'pres'] = pd.NA
+    
+      
+    uk_weather_2023_processed = uk_weather_2023_processed.loc[:,['STATION','DATE','LATITUDE','LONGITUDE',
+                    'wd','ws','tmp','vis','pres','dewpt','ceil_hgt']] 
+  
     # Optional: Save to CSV
     # data.to_csv(f"weather_data_{year}.csv", index=False)
+ 
 
-# Optional: Merge the weather data with uk_locations if needed
-# merged_data = pd.merge(data, uk_locations, left_on='STATION', right_on='station_code', how='left')
+
+
