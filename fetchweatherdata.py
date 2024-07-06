@@ -151,11 +151,13 @@ if uk_weather_2023 is not None:
     
     uk_weather_2023_processed['pres'] = uk_weather_2023_processed['pres']/10
     
-      
+    uk_weather_2023_processed['ws'] = uk_weather_2023_processed['ws']/10
+    
     uk_weather_2023_processed = uk_weather_2023_processed.loc[:,['STATION','DATE','LATITUDE','LONGITUDE',
                     'wd','ws','tmp','vis','pres','dewpt','ceil_hgt']] 
   
     # Save to CSV
+    uk_locations.to_csv("uknoaastations.csv", index=False)
     uk_weather_2023_processed.to_csv(f"uk_weather_{year}.csv", index=False)
  
 
