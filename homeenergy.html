@@ -86,6 +86,55 @@
 <p style="text-align: left; text-indent: 100px;">
      <a href="https://louisemittal.github.io/" target="_blank">Home</a>
 	 </p>
+	 <div class="content-section">
+    <h2>	Summary</h2>
+	</p>
+        <ul>
+		I decided to examine our home energy use over time using meter readings saved by our energy company. </br></br> 
+		I expected that gas and electricity use would be higher during the winter months, with gas particularly likely to be affected by temperature as we use it for heating. </br></br>
+		We had additional insulation installed in parts of our house in September 2023 and I was interested to see whether this had an effect on our energy usage.</br></br>
+		Using publicly available temperature data, I found that gas use was indeed higher when the average temperature was lower. There was also a correlation between electricity use and temperature, although this 
+		may be more likely due to hours of daylight which were not included in this analysis. </br></br>
+		Gas use was lower compared to the average temperature after the insulation was installed. There was no clear effect of insulation on our electricity use, which is as expected.
+		</ul>
+	</div>
+	
+	<!-- Tableau Dashboard Embed -->
+	<div class="wide-box">
+	<div class='tableauPlaceholder' id='viz1723927320639' style='position: relative'>
+    <noscript><a href='#'><img alt='Home Energy use ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ho&#47;HomeEnergyUse_17239270547590&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript>
+    <object class='tableauViz'  style='display:none;'>
+      <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+      <param name='embed_code_version' value='3' />
+      <param name='site_root' value='' />
+      <param name='name' value='HomeEnergyUse_17239270547590&#47;Dashboard1' />
+      <param name='tabs' value='no' />
+      <param name='toolbar' value='yes' />
+      <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ho&#47;HomeEnergyUse_17239270547590&#47;Dashboard1&#47;1.png' />
+      <param name='animate_transition' value='yes' />
+      <param name='display_static_image' value='yes' />
+      <param name='display_spinner' value='yes' />
+      <param name='display_overlay' value='yes' />
+      <param name='display_count' value='yes' />
+      <param name='language' value='en-US' />
+      <param name='filter' value='publish=yes' />
+    </object>
+	</div>
+	<script type='text/javascript'>                    
+	var divElement = document.getElementById('viz1723927320639');                    
+	var vizElement = divElement.getElementsByTagName('object')[0];                    
+	if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';
+	vizElement.style.maxWidth='1150px';
+	vizElement.style.height=(divElement.offsetWidth*0.75)+'px';vizElement.style.maxHeight='887px';
+	} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.maxWidth='1150px';
+	vizElement.style.height=(divElement.offsetWidth*0.75)+'px';vizElement.style.maxHeight='887px';
+	} else { vizElement.style.width='100%';vizElement.style.height='1327px';}                     
+	var scriptElement = document.createElement('script');                    
+	scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                   
+	vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+	</script>
+    </div>
+	
 	<div class="content-section">
     <h2>	Analysis methods</h2>
 	
@@ -108,60 +157,7 @@
         </ul>
 		</div>
 
-    <!-- Tableau Dashboard Embed -->
-	<div class="wide-box">
-    <div class='tableauPlaceholder' id='viz1719582086903'>
-        <noscript>
-            <a href='#'>
-                <img alt='Dashboard 1' src='https://public.tableau.com/static/images/En/Energyusagedashboard/Dashboard1/1_rss.png' style='border: none' />
-            </a>
-        </noscript>
-        <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='site_root' value='' />
-            <param name='name' value='Energyusagedashboard/Dashboard1' />
-            <param name='tabs' value='no' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/En/Energyusagedashboard/Dashboard1/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-US' />
-            <param name='filter' value='publish=yes' />
-        </object>
-		 </div>
-    </div>
-        <script type='text/javascript'>
-            var divElement = document.getElementById('viz1719582086903');
-            var vizElement = divElement.getElementsByTagName('object')[0];
-            if (divElement.offsetWidth > 800) {
-                vizElement.style.minWidth = '1320px';
-                vizElement.style.maxWidth = '1320px';
-                vizElement.style.width = '100%';
-                vizElement.style.minHeight = '587px';
-                vizElement.style.maxHeight = '1087px';
-                vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
-            } else if (divElement.offsetWidth > 500) {
-                vizElement.style.minWidth = '1320px';
-                vizElement.style.maxWidth = '1320px';
-                vizElement.style.width = '100%';
-                vizElement.style.minHeight = '587px';
-                vizElement.style.maxHeight = '1087px';
-                vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
-            } else {
-                vizElement.style.width = '100%';
-                vizElement.style.height = '1527px';
-            }
-            
-            var scriptElement = document.createElement('script');
-            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-            vizElement.parentNode.insertBefore(scriptElement, vizElement);
-        </script>
-    </div>
-	
+    
 	<div class="content-section">
     <h2>Insights</h2>
         <ul>
