@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+
+    <!-- Reference the external AnalyticsCode.js file -->
+    <script src="AnalyticsCode.js"></script>
+    
+    <script>
+        // Track the redirect and send event with a slight delay
+        setTimeout(function() {
+            trackExternalRedirect('https://www.treesforcities.org/stories/climate-change-threats-to-british-trees', 'TreesforCities');
+        }, 500); // 500ms delay before redirect
+		// Perform the redirect
+                setTimeout(function() {
+            // Perform the redirect after a delay
+            window.location.href = 'https://www.treesforcities.org/stories/climate-change-threats-to-british-trees';
+        }, 100); // 100ms 
+    </script>
+</head>
+<body>
+    <p>Taking you to Trees for Cities...</p>
+</body>
+</html>
+
+
