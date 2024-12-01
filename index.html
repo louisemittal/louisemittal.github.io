@@ -8,7 +8,10 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+   // Check for the exclude_from_tracking cookie to exclude my own visits
+    if (document.cookie.indexOf('exclude_from_tracking=true') === -1) {
   gtag('config', 'G-MSYL07FET5');
+  }
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
